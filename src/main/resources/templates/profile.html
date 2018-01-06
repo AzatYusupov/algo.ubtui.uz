@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:include="layout::site-head">
+    <title>Welcome</title>
+</head>
+<body>
+<div>
+    <header th:replace="layout::site-header"/>
+    <div class="panel panel-default" align="center" style="padding: 10px;">
+        <h2 class="user_name" th:text="${user.username}"></h2>
+        <table>
+            <tr>
+                <td class="user_stats_value">O'rni</td>
+                <td class="user_stats_value" th:text="${user.data.place}"></td>
+            </tr>
+            <tr>
+                <td class="user_stats_value">Yechgan masalalar soni</td>
+                <td class="user_stats_value" th:text="${user.data.solved}"></td>
+            </tr>
+        </table>
+        <div>
+            <table>
+                <tr>
+                    <td>
+                        <img th:src="@{'/userImage/'+${user.id}}" width="300" style="margin-bottom: 10px;"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center">
+                        <a href="#">Barcha urinishlar</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center">
+                        <a href="#">Muvoffaqiyatki urinishlar</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <table>
+            <tr th:each="problems: ${problemsGroupList}">
+                <td th:each="problem: ${problems}" class="problem-href">
+                    <a th:title="${problem.title}" th:if="${problem.solvedByUser==1}" class="problem-solved" th:href="'/problem/'+${problem.id}" th:text="${problem.id}"></a>
+                    <a th:title="${problem.title}" th:if="${problem.solvedByUser==2}" class="problem-unsolved" th:href="'/problem/'+${problem.id}" th:text="${problem.id}"></a>
+                    <a th:title="${problem.title}" th:if="${problem.solvedByUser==0}" class="problem-empty" th:href="'/problem/'+${problem.id}" th:text="${problem.id}"></a>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <footer th:replace="layout::site-footer"/>
+</div>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout::site-head">
+    <title>Algorithm</title>
+</head>
+
+<body>
+<div>
+    <header th:replace="layout::site-header"/>
+    <table>
+        <tbody th:each="post : ${posts}">
+            <tr>
+                <td><table style="margin-bottom: 20px;" class="panel radius">
+                    <tr>
+                        <td colspan="2" th:text="${post.title}" class="panel radius" style="padding: 5px; font-weight: bold"/>
+                    </tr>
+                    <tr>
+                        <td rowspan="2" style="width: 220px;"><img th:src="@{'/img/'+${post.imgUrl}}" class="post_image"/></td>
+                        <td style="vertical-align: top; margin: 10px;"><table>
+                            <tr>
+                                <td colspan="2" th:utext="${#strings.abbreviate(post.body, post.main)}"></td>
+                            </tr>
+                            <tr>
+                                <td><a th:href="'/post/'+${post.id}">Batafsil..</a></td>
+                            </tr>
+                            <tr>
+                                <td><img class="image_icon" th:src="@{/img/site/author.png}" title="Avtor"/><span th:text="${post.author}" style="text-align: left;"></span></td>
+                                <td><img class="image_icon" th:src="@{/img/site/calendar.png}" title="Sana"/><span th:text="${post.date}" style="text-align: left;"></span></td>
+                            </tr>
+                        </table></td>
+                    </tr>
+                </table></td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="text-center">
+        <ul class="pagination" th:each="i: ${#numbers.sequence(1, cntPages)}">
+            <li class="active"><a th:if="${i==curPage}" th:text="${i}"></a></li>
+            <li><a th:unless="${i==curPage}" th:text="${i}" th:href="'/page/' + ${i}"></a></li>
+        </ul>
+    </div>
+    <header th:replace="layout::site-footer"/>
+</div>
+</body>
+
+</html>

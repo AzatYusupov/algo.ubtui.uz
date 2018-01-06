@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:include="layout::site-head">
+    <title>Status</title>
+</head>
+<body>
+    <div>
+        <header th:replace="layout::site-header"/>
+        <div class="panel panel-default">
+            <table class="table" style="vertical-align: middle;">
+                <thead>
+                    <th>№</th>
+                    <th width="10%">vaqt</th>
+                    <th>Foydalanuvchi</th>
+                    <th>Masala</th>
+                    <th>Til</th>
+                    <th>Status</th>
+                    <th>Vaqt(s)</th>
+                    <th>Hotira(KB)</th>
+                </thead>
+                <tbody th:each="result: ${results}">
+                <tr style="height: 50px;" valign="middle">
+                    <td th:text="${result.id}"></td>
+                    <td th:text="${result.date}"></td>
+                    <td><a th:href="'/profile/'+${result.user.username}" th:text="${result.user.username}"></a></td>
+                    <td><a th:href="'/problem/'+${result.problemId}" th:text="${result.problemId}"></a></td>
+                    <td th:text="${result.lang.title}"></td>
+                    <td>
+                        <span th:switch="${result.state.id}">
+                            <span th:case="-2" style="color: darkblue;" th:text="${result.state.title}"></span>
+                            <span th:case="-1" style="color: darkblue;" th:text="${result.state.title} + '#' + ${result.testCase}"></span>
+                            <span th:case="1" style="color: darkgreen;" th:text="${result.state.title}"></span>
+                            <span th:case="*" style="color: darkred;" th:text="${result.state.title}"></span>
+                        </span>
+                        <span th:if="${result.testCase > 0 and result.state.id > 1}" style="color: darkred;" th:text="'#'+${result.testCase}"></span>
+                        <span th:if="${result.testCase > 0 and result.state.id == -1}" th:text="'#'+${result.testCase}"></span>
+                    </td>
+                    <td th:text="${result.time==0 ? 0 : result.time/1000.0}"></td>
+                    <td th:text="${result.memory/1024}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <footer th:replace="layout::site-footer"/>
+    </div>
+</body>
+</html>

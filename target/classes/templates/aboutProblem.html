@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:include="layout::site-head">
+    <title>Masalalar</title>
+</head>
+<body>
+<div class="container">
+    <header th:replace="layout::site-header"></header>
+    <div class="panel panel-default">
+        <div class="panel-heading" style="text-align: center;">
+            <label th:text="${problem.id} + '. ' +${problem.title}"></label><br/>
+            <small th:text="'Vaqt limiti: ' + ${problem.timeLimit/1000} + ' sekund'"></small><br/>
+            <small th:text="'Hotira limiti: ' + ${problem.memoryLimit/1024/1024} + ' MB'"></small>
+        </div>
+        <div class="panel-body" th:utext="${problem.body}"></div>
+        <div class="panel-footer" align="right">
+            <a type="submit" class="btn btn-primary" th:href="'/send/' + ${problem.id}">Jo'natish</a>
+        </div>
+    </div>
+    <div class="panel" align="center">
+    <footer th:replace="layout::site-footer"></footer>
+    </div>
+</div>
+</body>
+</html>

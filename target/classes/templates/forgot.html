@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:include="layout::site-head">
+    <title>Forgot password</title>
+</head>
+<body>
+<div>
+    <header th:replace="layout::site-header"/>
+    <div class="panel panel-default" style="width: 40%; padding: 20px;">
+        <form action="#" th:action="@{/forgot}" method="post" th:object="${user}">
+            <fieldset>
+                <legend>Parolni tiklash</legend>
+                <p>
+                    <label for="username">Login yoki email kiriting</label><br/>
+                    <input type="text" name="username" id="username" maxlength="255" th:value="*{username}"/><br/>
+                    <label class="validation-error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Error</label>
+                </p>
+                <p>
+                    <button type="submit" class="btn btn-primary">Tiklash</button>
+                </p>
+            </fieldset>
+        </form>
+    </div>
+    <footer th:replace="layout::site-footer"/>
+</div>
+</body>
+</html>

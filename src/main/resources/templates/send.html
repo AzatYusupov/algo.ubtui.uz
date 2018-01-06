@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:include="layout::site-head">
+    <title>Welcome</title>
+</head>
+<body>
+<div>
+    <header th:replace="layout::site-header"/>
+    <div class="panel panel-default" style="width: 80%; padding: 20px;">
+        <form action="#" th:action="@{/send}" method="post">
+            <fieldset>
+                <legend style="font-size: 18px;" th:text="'Masala: ' + ${problem.id} + '.' + ${problem.title}"></legend>
+                <label>Dasturlash tilini tanlang: </label>
+                <select name="langId">
+                    <option th:each="lang : ${langs}" th:value="${lang.id}" th:text="${lang.title}"></option>
+                </select>
+                <br/>
+                <label>Dastur kodi: </label><br/>
+                <input type="hidden" th:value="${problem.id}" name="problemId"/>
+                <textarea style="width: 100%" rows="20" name="source" required="required"></textarea>
+                <p align="right">
+                    <button type="submit" class="btn btn-primary">Jo'natish</button>
+                </p>
+            </fieldset>
+        </form>
+    </div>
+    <footer th:replace="layout::site-footer"/>
+</div>
+</body>
+</html>
